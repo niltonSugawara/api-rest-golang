@@ -8,7 +8,10 @@ import (
 
 func (h *Handler) ProdutoPost(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
 	var requisicao domain.NovoProduto
-	render.DecodeJSON(r.Body, &requisicao)
+	err := render.DecodeJSON(r.Body, &requisicao)
+	if err != nil {
+		return nil, 0, err
+	}
 	id, err := h.ProdutoService.Create(requisicao)
 	return map[string]string{"id": id}, 201, err
 }

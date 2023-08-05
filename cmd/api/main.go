@@ -24,5 +24,8 @@ func main() {
 		ProdutoService: &produtoService,
 	}
 	r.Post("/produtos", endpoints.HandlerError(handler.ProdutoPost))
-	http.ListenAndServe(":3000", r)
+	err := http.ListenAndServe(":3000", r)
+	if err != nil {
+		return
+	}
 }
